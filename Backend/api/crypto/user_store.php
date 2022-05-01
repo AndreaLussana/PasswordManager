@@ -13,18 +13,23 @@
     $salt["salt-pwd"] = $stored_salt_pwd;
     ///////////////////////////////////////////////////////////////////////////////////////////
     $stretched_master_key = hash_hkdf('sha256', $master_key, 32, 'aes-256-encryption', '');
-    echo "|stretched: " . $stretched_master_key;
+    /*echo "|stretched: " . $stretched_master_key;
     $symmetric_key = openssl_random_pseudo_bytes(32);
-    $symmetric_key = utf8_decode($symmetric_key);
     echo "|symmetric: "  .$symmetric_key;
+
     $method = "aes-256-cbc";   
     $iv_length = openssl_cipher_iv_length($method);
     $iv = openssl_random_pseudo_bytes($iv_length);
-    $iv = utf8_decode($iv . "?");
     echo "|iv: " . $iv;
-    $salt["salt-iv"] = $iv;
-    $stored_key = openssl_encrypt($symmetric_key,$method,$stretched_master_key, OPENSSL_RAW_DATA ,$iv);     //Salvare nel db
+    $salt["salt-iv"] = utf8_encode($iv);
+    $stored_key = openssl_encrypt($symmetric_key,$method,$stretched_master_key, OPENSSL_RAW_DATA ,utf8_encode($iv));     //Salvare nel db
     $stored_salt = serialize($salt);    //Salvare nel db
-    $data = openssl_decrypt($stored_key,$method,$stretched_master_key,OPENSSL_RAW_DATA,$iv);
-    echo "|data vale: " . $data;
+    echo "Iv normale: " . strlen($iv) . "mentre encode vale: " . strlen(utf8_encode($iv));
+    //$data = openssl_decrypt($stored_key,$method,$stretched_master_key,OPENSSL_RAW_DATA,$iv);*/
+    $stored_salt = serialize($salt);
+    include("abcrypt.php");
+    $symmetric_key = openssl_random_pseudo_bytes(32);
+    $abCrypt = new abCrypt(bin2hex($stretched_master_key));
+    $stored_key = $abCrypt->encrypt($symmetric_key);
+    
 ?>

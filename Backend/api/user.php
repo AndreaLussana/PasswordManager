@@ -39,6 +39,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){   //Update only detusers table
                 while ($row = $result->fetch_assoc()) {
                     $stored_pass=$row["pwd"];
                 }
+                //echo "stored vale: " . $stored_pass . " mentre pass vale: " . $pass;
                 if($stored_pass == $pass){
                     $stmt = $conn->prepare('SELECT skey FROM users WHERE email=?'); //Prendo il salt per generare la password e confrontarla
                     $stmt->bind_param('s', $email); 
@@ -48,9 +49,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){   //Update only detusers table
                         $stored_key=$row["skey"];
                     }
                     $k = loginKey($email, $pwd, $stored_key, $salt);
-                    response("User logged in", true, $k);
+                    response("User logged in", true, "");
                 }else{
-                    response("Login error", true, "");
+                    response("Login error", false, "");
                 }
                 
                 
