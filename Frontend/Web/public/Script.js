@@ -57,7 +57,9 @@ function Log(){
         };
           
     $.ajax(settings).done(function (response) {
-        console.log(response);
+        if(response.status == true){
+            window.location.replace("home.php");
+        }
     });
 
 }

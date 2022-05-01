@@ -10,7 +10,7 @@
         top:150px;
         left:25%;
     }
-    .row{
+    #row_el{
         padding:5px;
         border: 1px solid gray;
         border-radius: 16px;
@@ -25,45 +25,68 @@
     }
     #elements{
         position:absolute;
-        top:180px;
+        top:130px;
         left:23%;
     }
-    .row{
+    #row_el{
         padding:5px;
         border: 1px solid rgb(230, 227, 227);
         border-radius: 20px;
+        cursor: pointer;
+        width: 90%;
     }
 }
+#add_btn{
+    position: absolute;
+    bottom:7%;
+    right:7%;
+    width: 70px;
+    height: 70px;
+    padding: 10px 16px;
+    border-radius: 35px;
+    text-align: center;
+}
+#col_last{
+    text-align: center;
+}
+.unselectable{
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
 /* da modificare
-/* Smartphones (portrait and landscape) ---------- */
+/* Smartphones (portrait and landscape) ---------- 
 @media screen and (min-width: 320px) and (max-width: 480px){
-    /* styles */
+    /* styles 
    }
-   /* Smartphones (portrait) ---------- */
+   /* Smartphones (portrait) ---------- 
    @media screen and (max-width: 320px){
-    /* styles */
+    /* styles 
    }
-   /* Smartphones (landscape) ---------- */
+   /* Smartphones (landscape) ----------
    @media screen and (min-width: 321px){
-    /* styles */
+    /* styles 
    }
-   /* Tablets, iPads (portrait and landscape) ---------- */
+   /* Tablets, iPads (portrait and landscape) ---------- 
    @media screen and (min-width: 768px) and (max-width: 1024px){
-    /* styles */
+    /* styles 
    }
-   /* Tablets, iPads (portrait) ---------- */
+   /* Tablets, iPads (portrait) ----------
    @media screen and (min-width: 768px){
-    /* styles */
+    /* styles *
    }
-   /* Tablets, iPads (landscape) ---------- */
+   /* Tablets, iPads (landscape) ----------
    @media screen and (min-width: 1024px){
-    /* styles */
+    /* styles 
    }
-   /* Desktops and laptops ---------- */
+   /* Desktops and laptops ---------- 
    @media screen and (min-width: 1224px){
-    /* styles */
+    /* styles
    }
-   /* Large screens ---------- */
+   /* Large screens ----------
    @media screen and (min-width: 1824px){
-    /* styles */
+    /* style
    }
