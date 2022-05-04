@@ -78,23 +78,23 @@
                 <div class="row">
                     <div class="col">
                         <label for="Nome">Nome</label>
-                        <input type="email" class="form-control" id="input_nome" aria-describedby="nomeHelp" placeholder="Inserisci nome">
+                        <input type="email" class="form-control" id="input_nome" aria-describedby="nomeHelp" placeholder="Inserisci nome" autocomplete='off'>
                     </div>
                     <div class="col">
                         <label for="Username">Username</label>
-                        <input type="Username" class="form-control" id="input_username" aria-describedby="usernameHelp" placeholder="Inserisci username">
+                        <input type="Username" class="form-control" id="input_username" aria-describedby="usernameHelp" placeholder="Inserisci username" autocomplete='off'>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col">
                         <label for="Email">Email</label>
-                        <input type="email" class="form-control" id="input_email" aria-describedby="emailHelp" placeholder="Inserisci email">
+                        <input type="email" class="form-control" id="input_email" aria-describedby="emailHelp" placeholder="Inserisci email" autocomplete='off'>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col">
                         <label for="Password">Password</label>
-                        <input type="password" class="form-control" id="input_password" aria-describedby="passwordHelp" placeholder="Inserisci password">
+                        <input type="password" class="form-control" id="input_password" aria-describedby="passwordHelp" placeholder="Inserisci password" autocomplete='off'>
                     </div>
                     <div class="col col-md-auto" style="margin-top:5%;text-align:left;">
                         <button type="button" title="Controlla integrità password" class="btn" id="integr"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-patch-check" viewBox="0 0 16 16">
@@ -107,7 +107,7 @@
                             <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
                             </svg>
                         </button>
-                        <button type="button" title="Genera password" class="btn"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-repeat" viewBox="0 0 16 16">
+                        <button type="button" title="Genera password" class="btn" id="generapass"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-repeat" viewBox="0 0 16 16">
                             <path d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z"/>
                             <path fill-rule="evenodd" d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z"/>
                             </svg>
@@ -122,6 +122,68 @@
             </div>
         </div>
         </div>
+        <!-- //////////////////////////////////////////////////////////////////-->
+        <div class="modal fade" id="genpassmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Genera password</h5>
+                <button type="button" class="btn close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col">
+                        <input type="text" id="genpassbox" style="width:90%;" disabled autocomplete='off'>
+                    </div>
+                    <div class="col col-md-auto">
+                        <button type="button" class="btn border" title="Copia password" id="copiapass"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-clipboard" viewBox="0 0 16 16">
+                            <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
+                            <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
+                            </svg>
+                        </button>
+                        <button type="button" class="btn border" title="Rigenera password" id="rigenpass"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-repeat" viewBox="0 0 16 16">
+                            <path d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z"/>
+                            <path fill-rule="evenodd" d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <label for="passlength" class="form-label" style="margin-left:40%;">Lunghezza - <span id="lennum"></span></label>
+                    <input type="range" class="form-range" min="5" max="30" id="passlength" value="10" style="width:70%;margin-left:15%;">
+                </div>
+                <div class="row">
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="uppercase" name="passch" checked>
+                        <label class="form-check-label" for="flexSwitchCheckDefault">Maiuscole [A-Z]</label>
+                    </div>
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="lowercase" name="passch" checked>
+                        <label class="form-check-label" for="flexSwitchCheckChecked">Minuscole [a-z]</label>
+                    </div>
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="number" name="passch" checked>
+                        <label class="form-check-label" for="flexSwitchCheckDisabled">Numeri [0-9]</label>
+                    </div>
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="special"  name="passch" checked>
+                        <label class="form-check-label" for="flexSwitchCheckCheckedDisabled">Speciali [!@#$%^&*]</label>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" id="genpassclose">Close</button>
+                <button type="button" class="btn btn-primary" id="genpasssave"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-check2" viewBox="0 0 16 16">
+  <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+</svg></button>
+            </div>
+            </div>
+        </div>
+        </div>
+        <!--  -->
         <script> 
             async function checkPassword(){
                 var find = false;
@@ -166,8 +228,99 @@
                     document.getElementById("visualpass").innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16"><path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/><path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/></svg>';
                 }
             }
+            function generapass(){
+                $('#genpassmodal').modal('show');
+                $('#exampleModalCenter').modal('hide');
+                genpass();
+                var l = document.getElementById("passlength").value;
+                document.getElementById("lennum").innerHTML = l;
+            }
+            function genpassclose(){
+                $('#genpassmodal').modal('hide');
+                $('#exampleModalCenter').modal('show');
+            }
+            function genpasssave(){
+                $('#genpassmodal').modal('hide');
+                $('#exampleModalCenter').modal('show');
+                var pass = document.getElementById("genpassbox").value;
+                document.getElementById("input_password").value = pass;
+            }
+            function rigenpass(){
+                genpass();
+            }
+            function copiapass(){
+                var copyText = document.getElementById("genpassbox");
+                copyText.select(); 
+                copyText.setSelectionRange(0, 99999);
+                navigator.clipboard.writeText(copyText.value);
+                document.getElementById("messages").innerHTML = "<div class=\"alert alert-success\" role=\"alert\"><strong>Copiato!</strong></div>";
+                setTimeout(function () {$(".alert").alert('close')}, 3000);
+            }
+            function genpass(){
+                var up = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"; var low = "abcdefghijklmnopqrstuvwxyz"; var num="0123456789"; var spec="!@#$%^&*";
+                var final = ""; var password="";
+                var len = document.getElementById("passlength").value;
+                if($("#uppercase").is(":checked")){
+                    final+=up;
+                }
+                if($("#lowercase").is(":checked")){
+                    final+=low;
+                }
+                if($("#number").is(":checked")){
+                    final+=num;
+                }
+                if($("#special").is(":checked")){
+                    final+=spec;
+                }
+                for (var i = 0; i <= len; i++) {
+                    var randomNumber = Math.floor(Math.random() * final.length);
+                    password += final.substring(randomNumber, randomNumber +1);
+                }
+                document.getElementById("genpassbox").value = password;
+            }
             document.querySelector("#integr").addEventListener('click', checkPassword);
             document.querySelector("#visualpass").addEventListener('click', visualpass);
+            document.querySelector("#generapass").addEventListener('click', generapass);
+            document.querySelector("#genpassclose").addEventListener('click', genpassclose);
+            document.querySelector("#genpasssave").addEventListener('click', genpasssave);
+            document.querySelector("#rigenpass").addEventListener('click', rigenpass);
+            document.querySelector("#copiapass").addEventListener('click', copiapass);
+            document.querySelector("#uppercase").addEventListener('click', function(){
+                var $boxes = $('input[name=passch]:checked');
+                if($boxes.length<1){
+                    $('#uppercase').prop('checked', true);
+                }
+                genpass();
+            });
+            document.querySelector("#lowercase").addEventListener('click', function(){
+                var $boxes = $('input[name=passch]:checked');
+                if($boxes.length<1){
+                    $('#lowercase').prop('checked', true);
+                }
+                genpass();
+            });
+            document.querySelector("#number").addEventListener('click', function(){
+                var $boxes = $('input[name=passch]:checked');
+                if($boxes.length<1){
+                    $('#number').prop('checked', true);
+                }
+                genpass();
+            });
+            document.querySelector("#special").addEventListener('click', function(){
+                var $boxes = $('input[name=passch]:checked');
+                if($boxes.length<1){
+                    $('#special').prop('checked', true);
+                }
+                genpass();
+            });
+            $('#genpassmodal').on('hidden.bs.modal', function (e) {
+                $('#exampleModalCenter').modal('show');
+            })
+            $('#passlength').on("click", function() {
+                var l = document.getElementById("passlength").value;
+                document.getElementById("lennum").innerHTML = l;
+                genpass();
+            });
         </script>
     </body>
 </html>
