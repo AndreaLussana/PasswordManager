@@ -57,6 +57,18 @@
     -ms-user-select: none;
     user-select: none;
 }
+.alert {
+    width:20%; 
+    float:right;   
+    position: absolute;
+    top:2%;
+    right:2%;
+    z-index: 999999;
+ }
+ .btn:focus {
+    outline: none;
+    box-shadow: none;
+  }
 /* da modificare
 /* Smartphones (portrait and landscape) ---------- 
 @media screen and (min-width: 320px) and (max-width: 480px){

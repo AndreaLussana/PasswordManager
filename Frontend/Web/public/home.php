@@ -10,9 +10,11 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous"/>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+        <script type="javascript" src="sha1.js"></script>
         <link rel="stylesheet" href="home.css">
     </head>
     <body>
+        <div id="messages"></div>
         <div class="btn-group-vertical" id="navbar1">
             <button type="button" class="btn btn-light shadow p-2 mb-3 bg-white rounded"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house" viewBox="0 0 16 16" style="--darkreader-inline-fill: currentColor;" data-darkreader-inline-fill="">
             <path fill-rule="evenodd" d="M2 13.5V7h1v6.5a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5V7h1v6.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5zm11-11V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"></path>
@@ -92,7 +94,7 @@
                 <div class="row">
                     <div class="col">
                         <label for="Password">Password</label>
-                        <input type="text" class="form-control" id="input_password" aria-describedby="passwordHelp" placeholder="Inserisci password">
+                        <input type="password" class="form-control" id="input_password" aria-describedby="passwordHelp" placeholder="Inserisci password">
                     </div>
                     <div class="col col-md-auto" style="margin-top:5%;text-align:left;">
                         <button type="button" title="Controlla integrità password" class="btn" id="integr"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-patch-check" viewBox="0 0 16 16">
@@ -100,7 +102,7 @@
                             <path d="m10.273 2.513-.921-.944.715-.698.622.637.89-.011a2.89 2.89 0 0 1 2.924 2.924l-.01.89.636.622a2.89 2.89 0 0 1 0 4.134l-.637.622.011.89a2.89 2.89 0 0 1-2.924 2.924l-.89-.01-.622.636a2.89 2.89 0 0 1-4.134 0l-.622-.637-.89.011a2.89 2.89 0 0 1-2.924-2.924l.01-.89-.636-.622a2.89 2.89 0 0 1 0-4.134l.637-.622-.011-.89a2.89 2.89 0 0 1 2.924-2.924l.89.01.622-.636a2.89 2.89 0 0 1 4.134 0l-.715.698a1.89 1.89 0 0 0-2.704 0l-.92.944-1.32-.016a1.89 1.89 0 0 0-1.911 1.912l.016 1.318-.944.921a1.89 1.89 0 0 0 0 2.704l.944.92-.016 1.32a1.89 1.89 0 0 0 1.912 1.911l1.318-.016.921.944a1.89 1.89 0 0 0 2.704 0l.92-.944 1.32.016a1.89 1.89 0 0 0 1.911-1.912l-.016-1.318.944-.921a1.89 1.89 0 0 0 0-2.704l-.944-.92.016-1.32a1.89 1.89 0 0 0-1.912-1.911l-1.318.016z"/>
                             </svg>
                         </button>
-                        <button type="button" title="Visualizza password" class="btn" id="email" ><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
+                        <button type="button" title="Visualizza password" class="btn" id="visualpass"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
                             <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>
                             <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
                             </svg>
@@ -121,11 +123,51 @@
         </div>
         </div>
         <script> 
-            function checkPassword(){
-                var pass = document.getElementById("integr").value;
-                console.log(pass);
+            async function checkPassword(){
+                var find = false;
+                var pass = document.getElementById("input_password").value;
+                var hashed = await digestMessage(pass);
+                const hashapi = hashed.slice(0, 5);
+                var settings = {
+                    "url": "https://api.pwnedpasswords.com/range/" + hashapi,
+                    "method": "GET",
+                    "timeout": 0
+                };
+                $.ajax(settings).done(function (response) {
+                    var ar = response.split("\n");
+                    for(var i=0;i<ar.length;i++){
+                        if(ar[i].split(":")[0].toLowerCase().indexOf(hashed.slice(5))>-1){
+                            find=true;
+                        }
+                    }
+                   if(find == true){
+                        document.getElementById("messages").innerHTML = "<div class=\"alert alert-danger\" role=\"alert\"><strong>Attenzione! <br></strong>La tua password risulta compromessa</div>";
+                        setTimeout(function () {$(".alert").alert('close')}, 3000);
+                   }else{
+                        document.getElementById("messages").innerHTML = "<div class=\"alert alert-success\" role=\"alert\"><strong>OK! <br></strong>La tua password <strong>NON</strong> risulta compromessa</div>";
+                        setTimeout(function () {$(".alert").alert('close')}, 3000);
+                    }
+                });
+            }
+            async function digestMessage(message) {
+                const msgUint8 = new TextEncoder().encode(message);                           
+                const hashBuffer = await crypto.subtle.digest('SHA-1', msgUint8);           
+                const hashArray = Array.from(new Uint8Array(hashBuffer));                     
+                const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join(''); 
+                return hashHex;
+            }
+            function visualpass(){
+                var x = document.getElementById("input_password");
+                if (x.type === "password") {
+                    x.type = "text";
+                    document.getElementById("visualpass").innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-eye-slash" viewBox="0 0 16 16"><path d="M13.359 11.238C15.06 9.72 16 8 16 8s-3-5.5-8-5.5a7.028 7.028 0 0 0-2.79.588l.77.771A5.944 5.944 0 0 1 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.134 13.134 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755-.165.165-.337.328-.517.486l.708.709z"/><path d="M11.297 9.176a3.5 3.5 0 0 0-4.474-4.474l.823.823a2.5 2.5 0 0 1 2.829 2.829l.822.822zm-2.943 1.299.822.822a3.5 3.5 0 0 1-4.474-4.474l.823.823a2.5 2.5 0 0 0 2.829 2.829z"/><path d="M3.35 5.47c-.18.16-.353.322-.518.487A13.134 13.134 0 0 0 1.172 8l.195.288c.335.48.83 1.12 1.465 1.755C4.121 11.332 5.881 12.5 8 12.5c.716 0 1.39-.133 2.02-.36l.77.772A7.029 7.029 0 0 1 8 13.5C3 13.5 0 8 0 8s.939-1.721 2.641-3.238l.708.709zm10.296 8.884-12-12 .708-.708 12 12-.708.708z"/></svg>';
+                } else {
+                    x.type = "password";
+                    document.getElementById("visualpass").innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16"><path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/><path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/></svg>';
+                }
             }
             document.querySelector("#integr").addEventListener('click', checkPassword);
+            document.querySelector("#visualpass").addEventListener('click', visualpass);
         </script>
     </body>
 </html>
