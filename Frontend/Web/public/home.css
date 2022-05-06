@@ -5,7 +5,22 @@
         left: 0%;
         top: 250px;
     }
-    #elements{
+    #Home{
+        position:absolute;
+        top:150px;
+        left:25%;
+    }
+    #Preferiti{
+        position:absolute;
+        top:150px;
+        left:25%;
+    }
+    #Team{
+        position:absolute;
+        top:150px;
+        left:25%;
+    }
+    #Impostazioni{
         position:absolute;
         top:150px;
         left:25%;
@@ -23,7 +38,22 @@
         left: 10%;
         top: 250px;
     }
-    #elements{
+    #Home{
+        position:absolute;
+        top:130px;
+        left:23%;
+    }
+    #Preferiti{
+        position:absolute;
+        top:130px;
+        left:23%;
+    }
+    #Team{
+        position:absolute;
+        top:130px;
+        left:23%;
+    }
+    #Impostazioni{
         position:absolute;
         top:130px;
         left:23%;
