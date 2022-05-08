@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 
 ?>
@@ -10,6 +11,7 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous"/>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js" integrity="sha256-/H4YS+7aYb9kJ5OKhFYPUjSJdrtV6AeyJOtTkw6X72o=" crossorigin="anonymous"></script>
         <script type="javascript" src="sha1.js"></script>
         <script type="module" src="home.js"></script>
         <script src="ObjClass.js"></script>
@@ -37,28 +39,7 @@
         <div class="container" id="Home">
             <h1 class="mb-5">Home</h1>
             <!-- Aggiunta di un elemento -->
-            <div class="row shadow p-2 mb-1 bg-white unselectable" id="row_el">
-                <div class="col-sm">
-                    Email
-                </div>
-                <div class="col-sm">
-                    lussana.andrea03@gmail.com
-                </div>
-                <div class="col-sm" id="col_last">
-                    www.gmail.com
-                </div>
-            </div>
-            <div class="row shadow p-2 mb-1 bg-white unselectable" id="row_el">
-                <div class="col-sm">
-                    Spotify
-                </div>
-                <div class="col-sm">
-                    lussana.andrea.online@gmail.com
-                </div>
-                <div class="col-sm" id="col_last">
-                    www.spotify.com
-                </div>
-            </div>
+            Nessun elemento presente
             <!-- -->
         </div>
         <!-- Fine HomePage -->
@@ -67,17 +48,7 @@
         <div class="container d-none" id="Preferiti">
             <h1 class="mb-5">Preferiti</h1>
             <!-- Aggiunta di un elemento -->
-            <div class="row shadow p-2 mb-1 bg-white unselectable" id="row_el">
-                <div class="col-sm">
-                    Email
-                </div>
-                <div class="col-sm">
-                    lussana.andrea03@gmail.com
-                </div>
-                <div class="col-sm" id="col_last">
-                    www.gmail.com
-                </div>
-            </div>
+            Nessun preferito presente
             <!-- -->
         </div>
         <!-- Fine Preferiti -->
@@ -128,7 +99,7 @@
                     </div>
                     <div class="col">
                         <label for="Username">Username</label>
-                        <input type="Username" class="form-control" id="input_username" aria-describedby="usernameHelp" placeholder="Inserisci username" autocomplete='off'>
+                        <input type="text" class="form-control" id="input_username" aria-describedby="usernameHelp" placeholder="Inserisci username" autocomplete='off'>
                     </div>
                 </div>
                 <div class="row">
@@ -250,6 +221,10 @@
         </div>
         </div>
         <!--  -->
+        <script>
+            sessionStorage.setItem('key', '<?php echo $_SESSION["key"];?>');
+            sessionStorage.setItem('id', <?php echo $_SESSION["id"];?>);
+        </script>
     </body>
 </html>
               

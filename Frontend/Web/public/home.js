@@ -175,15 +175,88 @@ document.querySelector("#save_element").addEventListener('click', function(){
     }
     var new_el = new elemento($('#input_nome').val(), $('#input_username').val(), $('#input_email').val(), $('#input_password').val(), fav, $('#input_url').val(), $('#input_note').val());
     add_element(new_el);
+    $('#exampleModalCenter').modal('toggle');
 });
 function add_element(el){
-    //Creare la chiave con la sessione $_SESSION["key"] ed utilizzarla per crittare l'elemento da aggiungere
-    //Stringfy el
     var str = JSON.stringify(el);
+    var encrypted = CryptoJS.AES.encrypt(str, sessionStorage.getItem('key'));
+    //Invio l'oggetto alle api per salvarlo sul database
+    var settings = {
+        "url": "../../../Backend/api/element.php",
+        "method": "PUT",
+        "timeout": 0,
+        "headers": {
+            "Content-Type": "application/json"
+        },
+        "data": JSON.stringify({
+            "id": sessionStorage.getItem('id'),
+            "ceu": encrypted.toString()
+        }),
+        };
+          
+    $.ajax(settings).done(function (response) {
+        $('#Home').empty();
+        req_elem();
+    });
+    
+
+    /*console.log(encrypted.toString());
+    var decrypted = CryptoJS.AES.decrypt(encrypted.toString(), sessionStorage.getItem('key'));
+    console.log(decrypted);
+    var plaintext = decrypted.toString(CryptoJS.enc.Utf8);
+    console.log(plaintext);*/
+    //Stringfy el
+    /*var str = JSON.stringify(el);
     console.log(str);
     //Invio alle api
 
     //Push all'array locale
-    elements.push(el);
+    elements.push(el);*/
     //Aggiorno il frontend
 }
+$( document ).ready(function() {    //Funzione quando ricarico la pagina
+   req_elem();
+});
+function req_elem(){
+    elements=[];
+    //Richiesta degli oggetti
+    var settings = {
+        "url": "../../../Backend/api/element.php/all?id="+sessionStorage.getItem('id'),
+        "method": "GET",
+        "timeout": 0,
+        "headers": {
+            "Content-Type": "application/json"
+        }
+        };
+          
+    $.ajax(settings).done(function (response) {
+        var t = response.response;
+        var spl = t.split(":");
+        for(var i=0;i<spl.length;i++){
+            if(spl[i]!=""){
+                //in e[0] é presente l'id dell'elemento
+                var e = spl[i].split("?");
+                var decrypted = CryptoJS.AES.decrypt(e[1], sessionStorage.getItem('key'));
+                var pu = JSON.parse(decrypted.toString(CryptoJS.enc.Utf8));
+                pu.id = e[0];
+                elements.push(pu);
+            }
+        }
+        var pri = '<h1 class="mb-5">Home</h1>';
+        var pre = '<h1 class="mb-5">Preferiti</h1>';
+        for(var i=0;i<elements.length;i++){
+            pri+='<div class="row shadow p-2 mb-1 bg-white unselectable" id="row_el"><div class="col-sm">'+elements[i].name+'</div><div class="col-sm">'+elements[i].email+'</div><div class="col-sm" id="col_last">'+elements[i].url+'</div></div>';
+            if(elements[i].favourite == true){
+                pre+='<div class="row shadow p-2 mb-1 bg-white unselectable" id="row_el"><div class="col-sm">'+elements[i].name+'</div><div class="col-sm">'+elements[i].email+'</div><div class="col-sm" id="col_last">'+elements[i].url+'</div></div>';;
+            }
+
+        }
+        if(elements.length>0){
+            document.getElementById("Home").innerHTML = pri;
+            document.getElementById("Preferiti").innerHTML = pre;
+        }
+    });
+}
+$('#exampleModalCenter').on('hidden.bs.modal', function () {
+    $('#exampleModalCenter').find("input[type=text],input[type=email], input[type=password], textarea").val("");
+})

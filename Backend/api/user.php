@@ -57,7 +57,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){   //Update only detusers table
                     while ($row = $result->fetch_assoc()) {
                         var_dump($row);
                     }*/
-                    response("User logged in", true, utf8_encode($k));
+                    response("User logged in", true, utf8_encode($k). ":" . takeid($conn, $email));
                 }else{
                     response("Login error", false, "");
                 }

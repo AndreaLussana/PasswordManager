@@ -25,9 +25,10 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         ),
       ));
       $response = curl_exec($curl);
-      curl_close($curl);
       $r = json_decode($response, true);
-      $_SESSION["key"]= utf8_decode($r["response"]);
+      $spl = explode(":", $r["response"]);
+      $_SESSION["key"]= utf8_decode($spl[0]);
+      $_SESSION["id"] = $spl[1];
       header("Location: home.php");
       exit();
     }elseif($t=="reg"){
