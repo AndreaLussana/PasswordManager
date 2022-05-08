@@ -11,8 +11,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){   //Update only detusers table
             $pwd = $data["pwd"];
         }
         if(empty($email) || empty($pwd)){
-            $email = $_PUT["email"];
-            $pwd = $_PUT["pwd"];
+            $email = $_POST["email"];
+            $pwd = $_POST["pwd"];
             if(empty($email) || empty($pwd)){
                 response("Error sending data", false, "");
             }
@@ -57,7 +57,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){   //Update only detusers table
                     while ($row = $result->fetch_assoc()) {
                         var_dump($row);
                     }*/
-                    response("User logged in", true, "");
+                    response("User logged in", true, utf8_encode($k));
                 }else{
                     response("Login error", false, "");
                 }

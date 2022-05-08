@@ -44,7 +44,7 @@ function Log(){
     var email = document.getElementById("email").value;
     var masterp = document.getElementById("password").value;
     var settings = {
-        "url": "http://" + host + "Backend/api/user.php",
+        "url": "home.php",
         "method": "POST",
         "timeout": 0,
         "headers": {
@@ -57,9 +57,11 @@ function Log(){
         };
           
     $.ajax(settings).done(function (response) {
-        if(response.status == true){
+        console.log(response);
+        console.log(response.response);
+        /*if(response.status == true){
             window.location.replace("home.php");
-        }
+        }*/
     });
 
 }
