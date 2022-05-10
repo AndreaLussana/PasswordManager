@@ -25,7 +25,7 @@
         top:150px;
         left:25%;
     }
-    #row_el{
+    .row_el{
         padding:5px;
         border: 1px solid gray;
         border-radius: 16px;
@@ -58,7 +58,7 @@
         top:130px;
         left:23%;
     }
-    #row_el{
+    .row_el{
         padding:5px;
         border: 1px solid rgb(230, 227, 227);
         border-radius: 20px;

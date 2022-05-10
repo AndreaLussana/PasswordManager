@@ -13,7 +13,6 @@ session_start();
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js" integrity="sha256-/H4YS+7aYb9kJ5OKhFYPUjSJdrtV6AeyJOtTkw6X72o=" crossorigin="anonymous"></script>
         <script type="javascript" src="sha1.js"></script>
-        <script type="module" src="home.js"></script>
         <script src="ObjClass.js"></script>
         <link rel="stylesheet" href="home.css">
     </head>
@@ -221,10 +220,89 @@ session_start();
         </div>
         </div>
         <!--  -->
+        <!---  Modal per gli elementi -->
+        <div class="modal fade" id="elementdetail" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Dettagli elemento</h5>
+                <button type="button" class="btn close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+            <div class="row">
+                    <div class="col">
+                        <label for="Nome">Nome Elemento</label>
+                        <input type="text" class="form-control" id="detail_nome" aria-describedby="nomeHelp" placeholder="Inserisci nome" autocomplete='off'>
+                    </div>
+                    <div class="col">
+                        <label for="Username">Username</label>
+                        <input type="text" class="form-control" id="detail_username" aria-describedby="usernameHelp" placeholder="Inserisci username" autocomplete='off'>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <label for="Email">Email</label>
+                        <input type="email" class="form-control" id="detail_email" aria-describedby="emailHelp" placeholder="Inserisci email" autocomplete='off'>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <label for="Password">Password</label>
+                        <input type="password" class="form-control" id="detail_password" aria-describedby="passwordHelp" placeholder="Inserisci password" autocomplete='off'>
+                    </div>
+                    <div class="col col-md-auto" style="margin-top:5%;text-align:left;">
+                        <button type="button" title="Controlla integrità password" class="btn" id="detail_integr"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-patch-check" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M10.354 6.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7 8.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
+                            <path d="m10.273 2.513-.921-.944.715-.698.622.637.89-.011a2.89 2.89 0 0 1 2.924 2.924l-.01.89.636.622a2.89 2.89 0 0 1 0 4.134l-.637.622.011.89a2.89 2.89 0 0 1-2.924 2.924l-.89-.01-.622.636a2.89 2.89 0 0 1-4.134 0l-.622-.637-.89.011a2.89 2.89 0 0 1-2.924-2.924l.01-.89-.636-.622a2.89 2.89 0 0 1 0-4.134l.637-.622-.011-.89a2.89 2.89 0 0 1 2.924-2.924l.89.01.622-.636a2.89 2.89 0 0 1 4.134 0l-.715.698a1.89 1.89 0 0 0-2.704 0l-.92.944-1.32-.016a1.89 1.89 0 0 0-1.911 1.912l.016 1.318-.944.921a1.89 1.89 0 0 0 0 2.704l.944.92-.016 1.32a1.89 1.89 0 0 0 1.912 1.911l1.318-.016.921.944a1.89 1.89 0 0 0 2.704 0l.92-.944 1.32.016a1.89 1.89 0 0 0 1.911-1.912l-.016-1.318.944-.921a1.89 1.89 0 0 0 0-2.704l-.944-.92.016-1.32a1.89 1.89 0 0 0-1.912-1.911l-1.318.016z"/>
+                            </svg>
+                        </button>
+                        <button type="button" title="Visualizza password" class="btn" id="detail_visualpass"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
+                            <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>
+                            <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
+                            </svg>
+                        </button>
+                        <button type="button" title="Genera password" class="btn" id="detail_generapass"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-repeat" viewBox="0 0 16 16">
+                            <path d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z"/>
+                            <path fill-rule="evenodd" d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col">
+                        <label for="url">Url</label>
+                        <input type="text" class="form-control" id="detail_url" aria-describedby="urlHelp" placeholder="Inserisci url - ex: www.google.com" autocomplete='off'>
+                    </div>
+                    <div class="col col-md-auto" style="margin-top:5%;text-align:left;">
+                        <button type="button" title="Aggiungi elemento ai preferiti" class="btn" id="detailfav">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-star" viewBox="0 0 16 16">
+                            <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                <div class="row">
+                <div class="form-group">
+                    <label for="notearea">Note</label>
+                    <textarea class="form-control" id="detail_note" rows="3"></textarea>
+                </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" id="detailsclose">Close</button>
+                <button type="button" class="btn btn-primary" id="detailssave">Save</button>
+            </div>
+            </div>
+        </div>
+        </div>
         <script>
             sessionStorage.setItem('key', '<?php echo $_SESSION["key"];?>');
             sessionStorage.setItem('id', <?php echo $_SESSION["id"];?>);
         </script>
+        <script type="module" src="home.js"></script>
     </body>
 </html>
               
