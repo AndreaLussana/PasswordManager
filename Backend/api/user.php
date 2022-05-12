@@ -49,15 +49,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){   //Update only detusers table
                         $stored_key=$row["skey"];
                     }
                     $k = loginKey($email, $pwd, $stored_key, $salt);
-                    //Prendo tutti gli elementi dell'utente
-                    /*$stmt = $conn->prepare('SELECT * FROM element WHERE id = (SELECT id FROM users WHERE email = ?)'); 
-                    $stmt->bind_param('s', $email); 
-                    $stmt->execute();
-                    $result = $stmt->get_result();
-                    while ($row = $result->fetch_assoc()) {
-                        var_dump($row);
-                    }*/
-                    response("User logged in", true, utf8_encode($k). ":" . takeid($conn, $email));
+                    include("crypto/jwt.php");
+                    $c_jwt = create(takeid($conn, $email), $secret_key);
+                    response("User logged in", true, utf8_encode($k) . ":" . $c_jwt);
                 }else{
                     response("Login error", false, "");
                 }

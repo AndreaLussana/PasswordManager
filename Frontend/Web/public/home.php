@@ -300,7 +300,7 @@ session_start();
         </div>
         <script>
             sessionStorage.setItem('key', '<?php echo $_SESSION["key"];?>');
-            sessionStorage.setItem('id', <?php echo $_SESSION["id"];?>);
+            sessionStorage.setItem('jwt', '<?php echo $_SESSION["jwt"];?>');
         </script>
         <script type="module" src="home.js"></script>
     </body>

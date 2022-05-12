@@ -242,13 +242,14 @@ $( document ).ready(function() {    //Funzione quando ricarico la pagina
 });
 function req_elem(){
     elements=[];
-    //Richiesta degli oggetti
+    //Richiesta degli oggetti ////////////////////////////////////////////////////////////////// modifica con il jwt
     var settings = {
-        "url": "../../../Backend/api/element.php/all?id="+sessionStorage.getItem('id'),
+        "url": "../../../Backend/api/element.php/all",
         "method": "GET",
         "timeout": 0,
         "headers": {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "Authorization": "Bearer "+ sessionStorage.getItem('jwt')
         }
         };
           

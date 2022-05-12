@@ -26,9 +26,10 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
       ));
       $response = curl_exec($curl);
       $r = json_decode($response, true);
+      var_dump($r);
       $spl = explode(":", $r["response"]);
       $_SESSION["key"]= utf8_decode($spl[0]);
-      $_SESSION["id"] = $spl[1];
+      $_SESSION["jwt"] = $spl[1];
       header("Location: home.php");
       exit();
     }elseif($t=="reg"){
@@ -44,7 +45,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous"/>
         <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
         <script type="module" src="Script.js"></script>
-        <script src="utf8.js"></script>
     </head>
         <body>
       <div class="container d-flex justify-content-center align-items-center" style="margin-top: 15%;">
