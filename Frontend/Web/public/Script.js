@@ -65,7 +65,34 @@ function Log(){
     });
 
 }
+$( document ).ready(function() {
+    if(localStorage.getItem("cookie") === null){
+        localStorage.setItem("cookie", "false");
+    }
+});
 document.querySelector("#r").addEventListener('click', ChangeR);
 document.querySelector("#l").addEventListener('click', ChangeL);
 document.querySelector("#Reg").addEventListener('click', Reg);
 document.querySelector("#Log").addEventListener('click', Log);
+document.querySelector("#Lricordami").addEventListener('click', function(){
+    if(localStorage.getItem("cookie") != "true"){
+        $('#modalCookie1').modal('show');
+    }
+});
+document.querySelector("#Rricordami").addEventListener('click', function(){
+    if(localStorage.getItem("cookie") != "true"){
+        $('#modalCookie1').modal('show');
+    }
+});
+document.querySelector("#acceptcookie").addEventListener('click', function(){
+    localStorage.setItem("cookie", "true");
+    $('#modalCookie1').modal('hide');
+});
+document.querySelector("#rejectcookie").addEventListener('click', function(){
+    $('#modalCookie1').modal('hide');
+});
+$('#modalCookie1').on('hidden.bs.modal', function () {
+    if(localStorage.getItem("cookie") != "true"){
+        $( "#Rricordami, #Lricordami" ).prop( "checked", false );
+    }
+});

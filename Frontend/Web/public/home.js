@@ -1,4 +1,5 @@
 var elements = [];
+var open = 0;   //1=aggiungi elemento, 2=dettagli elemento
 async function checkPassword(){
     var find = false;
     var pass = document.getElementById("input_password").value;
@@ -48,8 +49,10 @@ function visualpass(){
 function generapass(){
     $('#genpassmodal').modal('show');
     if($('#elementdetail').is(':visible')){
+        open = 2;
         $('#elementdetail').modal('hide');
     }else{
+        open = 1;
         $('#exampleModalCenter').modal('hide');
     }
     genpass();
@@ -58,16 +61,22 @@ function generapass(){
 }
 function genpassclose(){
     $('#genpassmodal').modal('hide');
-    $('#exampleModalCenter').modal('show');
+    if(open==1){
+        $('#exampleModalCenter').modal('show');
+    }else if(open==2){
+        $('#elementdetail').modal('show');
+    }
+    
 }
 function genpasssave(){
     $('#genpassmodal').modal('hide');
-    $('#exampleModalCenter').modal('show');
     var pass = document.getElementById("genpassbox").value;
-    if($('#elementdetail').is(':visible')){
-        document.getElementById("detail_password").value = pass;
-    }else{
+    if(open==1){
+        $('#exampleModalCenter').modal('show');
         document.getElementById("input_password").value = pass;
+    }else if(open==2){
+        $('#elementdetail').modal('show');
+        document.getElementById("detail_password").value = pass;
     }
 }
 function rigenpass(){
@@ -151,7 +160,12 @@ document.querySelector("#special").addEventListener('click', function(){
     genpass();
 });
 $('#genpassmodal').on('hidden.bs.modal', function (e) {
-    $('#exampleModalCenter').modal('show');
+    if(open==1){
+        $('#exampleModalCenter').modal('show');
+    }else if(open==2){
+        $('#elementdetail').modal('show');
+    }
+    
 })
 $('#passlength').on("click", function() {
     var l = document.getElementById("passlength").value;
@@ -282,7 +296,9 @@ function req_elem(){
     });
 }
 $('#exampleModalCenter').on('hidden.bs.modal', function () {
-    $('#exampleModalCenter').find("input[type=text],input[type=email], input[type=password], textarea").val("");
+    if(!$('#genpassmodal').is(':visible')){
+        $('#exampleModalCenter').find("input[type=text],input[type=email], input[type=password], textarea").val("");
+    }
 });
 $(document).on('click','.row_el',function(){
     var sp = (this.id).split(",");
@@ -302,9 +318,11 @@ $(document).on('click','.row_el',function(){
     $('#elementdetail').modal('show');
 });
 $('#elementdetail').on('hidden.bs.modal', function () {
-    $('#elementdetail').find("input[type=text],input[type=email], input[type=password], textarea").val("");
-    document.getElementById("detailfav").innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-star" viewBox="0 0 16 16"><path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"/></svg>';
-    $("#addfav").removeClass("detailfav");
+    if(!$('#genpassmodal').is(':visible')){
+        $('#elementdetail').find("input[type=text],input[type=email], input[type=password], textarea").val("");
+        document.getElementById("detailfav").innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-star" viewBox="0 0 16 16"><path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"/></svg>';
+        $("#addfav").removeClass("detailfav");
+    }
 });
 document.querySelector("#detailsclose").addEventListener('click', function(){
     $('#elementdetail').modal('hide');

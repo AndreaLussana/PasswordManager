@@ -1,9 +1,9 @@
 # PasswordManager
 
 ## Task List
-- [ ] Ricordami al login/registrazione per creazione del cookie
-- [ ] Login con Google
-- [ ] Richiesta password al login con google
+- [x] Ricordami al login/registrazione per creazione del cookie
+- [/] Login con Google
+- [/] Richiesta password al login con google
 - [ ] Modifica Frontend login
 - [ ] Implementazione api team
 - [ ] Creazione del percorso dei team
