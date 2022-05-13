@@ -205,6 +205,31 @@ document.querySelector("#impostazioni_btn").addEventListener('click', function()
     $('#Team').addClass("d-none");
     $('#Impostazioni').removeClass("d-none");
 });
+document.querySelector("#logout_btn").addEventListener('click', function(){
+    sessionStorage.removeItem("key");
+    sessionStorage.removeItem("jwt");
+    post('home.php', {type: 'logout'});
+});
+function post(path, params, method='post') {
+    const form = document.createElement('form');
+    form.method = method;
+    form.action = path;
+  
+    for (const key in params) {
+      if (params.hasOwnProperty(key)) {
+        const hiddenField = document.createElement('input');
+        hiddenField.type = 'hidden';
+        hiddenField.name = key;
+        hiddenField.value = params[key];
+  
+        form.appendChild(hiddenField);
+      }
+    }
+  
+    document.body.appendChild(form);
+    form.submit();
+  }
+  
 document.querySelector("#save_element").addEventListener('click', function(){
     var fav = false;
     if($("#addfav").hasClass("filled")){
@@ -223,10 +248,10 @@ function add_element(el){
         "method": "PUT",
         "timeout": 0,
         "headers": {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "Authorization": "Bearer "+ sessionStorage.getItem('jwt')
         },
         "data": JSON.stringify({
-            "id": sessionStorage.getItem('id'),
             "ceu": encrypted.toString()
         }),
         };
@@ -235,21 +260,6 @@ function add_element(el){
         $('#Home').empty();
         req_elem();
     });
-    
-
-    /*console.log(encrypted.toString());
-    var decrypted = CryptoJS.AES.decrypt(encrypted.toString(), sessionStorage.getItem('key'));
-    console.log(decrypted);
-    var plaintext = decrypted.toString(CryptoJS.enc.Utf8);
-    console.log(plaintext);*/
-    //Stringfy el
-    /*var str = JSON.stringify(el);
-    console.log(str);
-    //Invio alle api
-
-    //Push all'array locale
-    elements.push(el);*/
-    //Aggiorno il frontend
 }
 $( document ).ready(function() {    //Funzione quando ricarico la pagina
    req_elem();
@@ -330,4 +340,10 @@ document.querySelector("#detailsclose").addEventListener('click', function(){
 document.querySelector("#detailssave").addEventListener('click', function(){
     //Richiedi conferma di modificare l'elemento
     //Modifica elemento salvando prima sul database, poi in array elements e infine aggiorna gli elementi mostrati nella pagina
+});
+document.querySelector("#create_team").addEventListener('click', function(){
+    //Possibilità di creare un solo team ma puó partecipare a piú team
+});
+document.querySelector("#addel_team").addEventListener('click', function(){
+    //Aggiungi elemento ad un team e inserisci la cartella dove selezionare il team (da inserire poi nel modifica totale)
 });

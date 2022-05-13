@@ -62,19 +62,20 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){   //Update info about element
     }
 }elseif($_SERVER["REQUEST_METHOD"] == "PUT"){  //Insert
     header("Access-Control-Allow-Methods: PUT");
+    require_once "../Config/DB.php";
+    include("crypto/jwt.php");
+    $jwt = getBearerToken();
+    $id = verify($jwt, $secret_key);
     $data = json_decode(file_get_contents("php://input"), true);
     if($data!=null){
-        $id = $data["id"];  //Da prendere poi tramite il JWT
         $ceu = $data["ceu"];    //Elemento
     }
-    if(empty($id) || empty($ceu)){
-        $id = $_PUT["id"];
+    if(empty($ceu)){
         $ceu = $_PUT["ceu"];
-        if(empty($id) || empty($ceu)){
+        if(empty($ceu) || empty($id)){
             response("Error sending data", false, "");
         }
     }
-    require_once "../Config/DB.php";
     if(!checknotexist($conn, $id)){    //false utente esiste allora puó inserire l'elemento
         $stmt = $conn->prepare('INSERT INTO element(user_id, ceu) VALUES(?,?)');
         $stmt->bind_param('ss', $id, $ceu); 

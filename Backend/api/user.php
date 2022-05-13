@@ -55,9 +55,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){   //Update only detusers table
                 }else{
                     response("Login error", false, "");
                 }
-                
-                
-                
             }
         }else{  //false allora l'utente giá esiste
             response("User already exist", false, "");
@@ -181,17 +178,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){   //Update only detusers table
         $stmt->bind_param('ssss', $email, $stored_pwd, $stored_key, $stored_salt); 
         $stmt->execute();
         $result = $stmt->get_result();
-        //Creo anche detusers
         $id = takeid($conn, $email);
-        if($id != false){
-            if($conn->query("INSERT INTO detusers(user_id, googlesign, fa) VALUES('".$id."', 0, 0)")){  
-                response("User created", true, "Success");
-            }else{
-                response("Error creating user", false, "");
-            }
-        }else{
-            response("Error creating user ad", false, "");
-        }
+        response("User created", true, "Success");
     }else{  //false allora l'utente giá esiste
         response("User already exist", false, "");
     }

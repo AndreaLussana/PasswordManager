@@ -1,14 +1,16 @@
 <?php
 session_start();
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-  $request=true;
+  
   $email = $_POST["mail"];
   $pwd = $_POST["pass"];
-  if(isset($_POST["Lricordami"])){
-    setcookie("email", $email, time() + (10 * 365 * 24 * 60 * 60), "/"); 
-  }
+  
   $t = $_POST["req"];
   if ($t == "login") {
+    $request=true;
+    if(isset($_POST["Lricordami"])){
+      setcookie("email", $email, time() + (10 * 365 * 24 * 60 * 60), "/"); 
+    }
     $postdata = [
       "email" => $email,
       "pwd" => $pwd
@@ -40,8 +42,37 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       exit();
     }
   } elseif ($t == "reg") {
-    //Fai registrazione
-  }
+    $requestR = true;
+    if(isset($_POST["Rricordami"])){
+      setcookie("email", $email, time() + (10 * 365 * 24 * 60 * 60), "/"); 
+    }
+      $postdata = [
+        "email" => $email,
+        "pwd" => $pwd
+      ];
+      $curl = curl_init();
+      curl_setopt_array($curl, array(
+        CURLOPT_URL => 'localhost/passwordmanager/Backend/api/user.php',
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => '',
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 0,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => 'PUT',
+        CURLOPT_POSTFIELDS => json_encode($postdata),
+        CURLOPT_HTTPHEADER => array(
+          'Content-Type: application/json'
+        ),
+      ));
+      $response = curl_exec($curl);
+      $r = json_decode($response, true);
+      if($r == null || $r["status"] == false){
+        $requestR=false;
+      }else{
+        $requestR=true;
+      }
+    }
 }
 
 ?>
@@ -72,6 +103,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <?php
       if(isset($request) && $request == false){
         echo '<div class="alert alert-danger" role="alert"><strong>Attenzione! <br></strong>Errore nel login</div>';
+      }elseif(isset($requestR) && $requestR == false){
+        echo '<div class="alert alert-danger" role="alert"><strong>Attenzione! <br></strong>Errore nella registrazione. <br> '.$r["message"].'</div>';
+      }elseif(isset($requestR) && $requestR == true){
+        echo '<div class="alert alert-success" role="alert"><strong>OK! <br></strong>Registrazione completata! <br> Effettua il login</div>';
       }
     ?>
   </div>
@@ -81,12 +116,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       </h1>
       <div class="form-group">
         <label for="exampleInputEmail1">Email address</label>
-        <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email" name="mail" value="<?php if(isset($_COOKIE["email"])){echo $_COOKIE["email"];} ?>">
+        <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email" name="mail" value="<?php if(isset($_COOKIE["email"])){echo $_COOKIE["email"];} ?>" required>
         <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
       </div>
       <div class="form-group">
         <label for="exampleInputPassword1">Password</label>
-        <input type="password" class="form-control" id="password" placeholder="Password" name="pass">
+        <input type="password" class="form-control" id="password" placeholder="Password" name="pass" required>
       </div>
       <div class="form-check">
         <input type="checkbox" class="form-check-input" id="Lricordami" name="Lricordami">
@@ -101,7 +136,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       </h1>
       <div class="form-group">
         <label for="exampleInputEmail1">Email address</label>
-        <input type="email" class="form-control" id="Remail" aria-describedby="emailHelp" placeholder="Enter email" name="mail">
+        <input type="email" class="form-control" id="Remail" aria-describedby="emailHelp" placeholder="Enter email" name="mail" required>
         <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
       </div>
       <div class="form-group">
