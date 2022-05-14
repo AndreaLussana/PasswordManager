@@ -4,19 +4,30 @@ header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: Access-Control-Allow-Headers,Content-Type,Access-Control-Allow-Methods,Authorization");
 if($_SERVER["REQUEST_METHOD"] == "POST"){   //Update info about element
     header("Access-Control-Allow-Methods: POST");
+    require_once "../Config/DB.php";
+    include("crypto/jwt.php");
+    $jwt = getBearerToken();
+    $id = verify($jwt, $secret_key);
     $data = json_decode(file_get_contents("php://input"), true);
-    if(empty($data["id"]) && empty($_POST["id"])){
-        if($data!=null){
-            $email = $data["email"];
-            $pwd = $data["pwd"];
+    if($data!=null){
+        $ceu = $data["ceu"];    //Elemento
+        $id_el = $data["idel"]; //id elemento
+    }
+    if(empty($ceu)||empty($id_el)){
+        $ceu = $_PUT["ceu"];
+        $id_el = $_PUT["idel"];
+        if(empty($ceu) || empty($id) || empty($id_el)){
+            response("Error sending data", false, "");
         }
-        if(empty($email) || empty($pwd)){
-            $email = $_POST["email"];
-            $pwd = $_POST["pwd"];
-            if(empty($email) || empty($pwd)){
-                response("Error sending data", false, "");
-            }
-        }
+    }
+    if(!checknotexist($conn, $id)){    //false utente esiste allora puó inserire l'elemento
+        $stmt = $conn->prepare('UPDATE element SET ceu=? WHERE id=? AND user_id=?');
+        $stmt->bind_param('sii', $ceu, $id_el, $id); 
+        $stmt->execute();
+        $result = $stmt->get_result();
+        response("Element updated", true, "");
+    }else{  //false allora l'utente giá esiste
+        response("Error in element update", false, "");
     }
         
 }elseif($_SERVER["REQUEST_METHOD"] == "GET"){  //Get info about element
@@ -83,7 +94,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){   //Update info about element
         $result = $stmt->get_result();
         response("Element added", true, "");
     }else{  //false allora l'utente giá esiste
-        response("User not exist", false, "");
+        response("Error element", false, "");
     }
 }elseif($_SERVER["REQUEST_METHOD"] == "DELETE"){  //Delete
     header("Access-Control-Allow-Methods: DELETE");

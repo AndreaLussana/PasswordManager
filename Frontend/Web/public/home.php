@@ -66,26 +66,18 @@ if(!isset($_SESSION["key"]) || !isset($_SESSION["jwt"])){
             <!-- -->
         </div>
         <!-- Fine Preferiti -->
+
         <!-- Team -->
         <div class="container d-none" id="Team">
             <h1 class="mb-5">Team</h1>
             <button type="button" id="create_team" class="btn btn-primary team rounded">+ Crea Team</button>
             <button type="button" id="addel_team" class="btn btn-primary team rounded">+ Aggiungi elemento</button>
             <!-- Aggiunta di un elemento -->
-            <div class="row shadow p-2 mb-1 bg-white unselectable" id="row_el">
-                <div class="col-sm">
-                    Email
-                </div>
-                <div class="col-sm">
-                    lussana.andrea03@gmail.com
-                </div>
-                <div class="col-sm" id="col_last">
-                    www.gmail.com
-                </div>
-            </div>
+            
             <!-- -->
         </div>
         <!-- Fine Team -->
+
         <!-- Impostazioni -->
         <div class="container d-none" id="Impostazioni">
             <h1 class="mb-5">Impostazioni</h1>
@@ -94,227 +86,236 @@ if(!isset($_SESSION["key"]) || !isset($_SESSION["jwt"])){
             <!-- -->
         </div>
         <!-- Fine Impostazioni -->
+
+        <!-- Logout -->
         <button type="button" class="btn btn-primary btn-circle btn-xl" id="add_btn" data-toggle="modal" data-target="#exampleModalCenter"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
             <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
             </svg>
         </button>
+        <!-- Fine Logout -->
+
+        <!-- Modal Aggiungi Elemento -->
         <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Aggiungi elemento</h5>
-                <button type="button" class="btn close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col">
-                        <label for="Nome">Nome Elemento</label>
-                        <input type="text" class="form-control" id="input_nome" aria-describedby="nomeHelp" placeholder="Inserisci nome" autocomplete='off'>
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Aggiungi elemento</h5>
+                    <button type="button" class="btn close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col">
+                            <label for="Nome">Nome Elemento</label>
+                            <input type="text" class="form-control" id="input_nome" aria-describedby="nomeHelp" placeholder="Inserisci nome" autocomplete='off'>
+                        </div>
+                        <div class="col">
+                            <label for="Username">Username</label>
+                            <input type="text" class="form-control" id="input_username" aria-describedby="usernameHelp" placeholder="Inserisci username" autocomplete='off'>
+                        </div>
                     </div>
-                    <div class="col">
-                        <label for="Username">Username</label>
-                        <input type="text" class="form-control" id="input_username" aria-describedby="usernameHelp" placeholder="Inserisci username" autocomplete='off'>
+                    <div class="row">
+                        <div class="col">
+                            <label for="Email">Email</label>
+                            <input type="email" class="form-control" id="input_email" aria-describedby="emailHelp" placeholder="Inserisci email" autocomplete='off'>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <label for="Password">Password</label>
+                            <input type="password" class="form-control" id="input_password" aria-describedby="passwordHelp" placeholder="Inserisci password" autocomplete='off'>
+                        </div>
+                        <div class="col col-md-auto" style="margin-top:5%;text-align:left;">
+                            <button type="button" title="Controlla integrità password" class="btn" id="integr"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-patch-check" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M10.354 6.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7 8.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
+                                <path d="m10.273 2.513-.921-.944.715-.698.622.637.89-.011a2.89 2.89 0 0 1 2.924 2.924l-.01.89.636.622a2.89 2.89 0 0 1 0 4.134l-.637.622.011.89a2.89 2.89 0 0 1-2.924 2.924l-.89-.01-.622.636a2.89 2.89 0 0 1-4.134 0l-.622-.637-.89.011a2.89 2.89 0 0 1-2.924-2.924l.01-.89-.636-.622a2.89 2.89 0 0 1 0-4.134l.637-.622-.011-.89a2.89 2.89 0 0 1 2.924-2.924l.89.01.622-.636a2.89 2.89 0 0 1 4.134 0l-.715.698a1.89 1.89 0 0 0-2.704 0l-.92.944-1.32-.016a1.89 1.89 0 0 0-1.911 1.912l.016 1.318-.944.921a1.89 1.89 0 0 0 0 2.704l.944.92-.016 1.32a1.89 1.89 0 0 0 1.912 1.911l1.318-.016.921.944a1.89 1.89 0 0 0 2.704 0l.92-.944 1.32.016a1.89 1.89 0 0 0 1.911-1.912l-.016-1.318.944-.921a1.89 1.89 0 0 0 0-2.704l-.944-.92.016-1.32a1.89 1.89 0 0 0-1.912-1.911l-1.318.016z"/>
+                                </svg>
+                            </button>
+                            <button type="button" title="Visualizza password" class="btn" id="visualpass"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
+                                <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>
+                                <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
+                                </svg>
+                            </button>
+                            <button type="button" title="Genera password" class="btn" id="generapass"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-repeat" viewBox="0 0 16 16">
+                                <path d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z"/>
+                                <path fill-rule="evenodd" d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col">
+                            <label for="url">Url</label>
+                            <input type="text" class="form-control" id="input_url" aria-describedby="urlHelp" placeholder="Inserisci url - ex: www.google.com" autocomplete='off'>
+                        </div>
+                        <div class="col col-md-auto" style="margin-top:5%;text-align:left;">
+                            <button type="button" title="Aggiungi elemento ai preferiti" class="btn" id="addfav">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-star" viewBox="0 0 16 16">
+                                <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row">
+                    <div class="form-group">
+                        <label for="notearea">Note</label>
+                        <textarea class="form-control" id="input_note" rows="3"></textarea>
+                    </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col">
-                        <label for="Email">Email</label>
-                        <input type="email" class="form-control" id="input_email" aria-describedby="emailHelp" placeholder="Inserisci email" autocomplete='off'>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <label for="Password">Password</label>
-                        <input type="password" class="form-control" id="input_password" aria-describedby="passwordHelp" placeholder="Inserisci password" autocomplete='off'>
-                    </div>
-                    <div class="col col-md-auto" style="margin-top:5%;text-align:left;">
-                        <button type="button" title="Controlla integrità password" class="btn" id="integr"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-patch-check" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M10.354 6.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7 8.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
-                            <path d="m10.273 2.513-.921-.944.715-.698.622.637.89-.011a2.89 2.89 0 0 1 2.924 2.924l-.01.89.636.622a2.89 2.89 0 0 1 0 4.134l-.637.622.011.89a2.89 2.89 0 0 1-2.924 2.924l-.89-.01-.622.636a2.89 2.89 0 0 1-4.134 0l-.622-.637-.89.011a2.89 2.89 0 0 1-2.924-2.924l.01-.89-.636-.622a2.89 2.89 0 0 1 0-4.134l.637-.622-.011-.89a2.89 2.89 0 0 1 2.924-2.924l.89.01.622-.636a2.89 2.89 0 0 1 4.134 0l-.715.698a1.89 1.89 0 0 0-2.704 0l-.92.944-1.32-.016a1.89 1.89 0 0 0-1.911 1.912l.016 1.318-.944.921a1.89 1.89 0 0 0 0 2.704l.944.92-.016 1.32a1.89 1.89 0 0 0 1.912 1.911l1.318-.016.921.944a1.89 1.89 0 0 0 2.704 0l.92-.944 1.32.016a1.89 1.89 0 0 0 1.911-1.912l-.016-1.318.944-.921a1.89 1.89 0 0 0 0-2.704l-.944-.92.016-1.32a1.89 1.89 0 0 0-1.912-1.911l-1.318.016z"/>
-                            </svg>
-                        </button>
-                        <button type="button" title="Visualizza password" class="btn" id="visualpass"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
-                            <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>
-                            <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
-                            </svg>
-                        </button>
-                        <button type="button" title="Genera password" class="btn" id="generapass"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-repeat" viewBox="0 0 16 16">
-                            <path d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z"/>
-                            <path fill-rule="evenodd" d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z"/>
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-                <hr>
-                <div class="row">
-                    <div class="col">
-                        <label for="url">Url</label>
-                        <input type="text" class="form-control" id="input_url" aria-describedby="urlHelp" placeholder="Inserisci url - ex: www.google.com" autocomplete='off'>
-                    </div>
-                    <div class="col col-md-auto" style="margin-top:5%;text-align:left;">
-                        <button type="button" title="Aggiungi elemento ai preferiti" class="btn" id="addfav">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-star" viewBox="0 0 16 16">
-                            <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"/>
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-                <div class="row">
-                <div class="form-group">
-                    <label for="notearea">Note</label>
-                    <textarea class="form-control" id="input_note" rows="3"></textarea>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Annulla</button>
+                    <button type="button" class="btn btn-primary" id="save_element">Salva</button>
                 </div>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Annulla</button>
-                <button type="button" class="btn btn-primary" id="save_element">Salva</button>
-            </div>
             </div>
         </div>
-        </div>
-        <!-- //////////////////////////////////////////////////////////////////-->
+        <!-- Fine Modal Aggiungi Elemento -->
+
+        <!-- Modal Genera Password -->
         <div class="modal fade" id="genpassmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Genera password</h5>
-                <button type="button" class="btn close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col">
-                        <input type="text" id="genpassbox" style="width:90%;" disabled autocomplete='off'>
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Genera password</h5>
+                    <button type="button" class="btn close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col">
+                            <input type="text" id="genpassbox" style="width:90%;" disabled autocomplete='off'>
+                        </div>
+                        <div class="col col-md-auto">
+                            <button type="button" class="btn border" title="Copia password" id="copiapass"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-clipboard" viewBox="0 0 16 16">
+                                <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
+                                <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
+                                </svg>
+                            </button>
+                            <button type="button" class="btn border" title="Rigenera password" id="rigenpass"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-repeat" viewBox="0 0 16 16">
+                                <path d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z"/>
+                                <path fill-rule="evenodd" d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z"/>
+                                </svg>
+                            </button>
+                        </div>
                     </div>
-                    <div class="col col-md-auto">
-                        <button type="button" class="btn border" title="Copia password" id="copiapass"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-clipboard" viewBox="0 0 16 16">
-                            <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
-                            <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
-                            </svg>
-                        </button>
-                        <button type="button" class="btn border" title="Rigenera password" id="rigenpass"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-repeat" viewBox="0 0 16 16">
-                            <path d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z"/>
-                            <path fill-rule="evenodd" d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z"/>
-                            </svg>
-                        </button>
+                    <hr>
+                    <div class="row">
+                        <label for="passlength" class="form-label" style="margin-left:40%;">Lunghezza - <span id="lennum"></span></label>
+                        <input type="range" class="form-range" min="5" max="30" id="passlength" value="10" style="width:70%;margin-left:15%;">
+                    </div>
+                    <div class="row">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="uppercase" name="passch" checked>
+                            <label class="form-check-label" for="flexSwitchCheckDefault">Maiuscole [A-Z]</label>
+                        </div>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="lowercase" name="passch" checked>
+                            <label class="form-check-label" for="flexSwitchCheckChecked">Minuscole [a-z]</label>
+                        </div>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="number" name="passch" checked>
+                            <label class="form-check-label" for="flexSwitchCheckDisabled">Numeri [0-9]</label>
+                        </div>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="special"  name="passch" checked>
+                            <label class="form-check-label" for="flexSwitchCheckCheckedDisabled">Speciali [!@#$%^&*]</label>
+                        </div>
                     </div>
                 </div>
-                <hr>
-                <div class="row">
-                    <label for="passlength" class="form-label" style="margin-left:40%;">Lunghezza - <span id="lennum"></span></label>
-                    <input type="range" class="form-range" min="5" max="30" id="passlength" value="10" style="width:70%;margin-left:15%;">
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" id="genpassclose">Close</button>
+                    <button type="button" class="btn btn-primary" id="genpasssave"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-check2" viewBox="0 0 16 16">
+                    <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+                    </svg></button>
                 </div>
-                <div class="row">
-                    <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" id="uppercase" name="passch" checked>
-                        <label class="form-check-label" for="flexSwitchCheckDefault">Maiuscole [A-Z]</label>
-                    </div>
-                    <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" id="lowercase" name="passch" checked>
-                        <label class="form-check-label" for="flexSwitchCheckChecked">Minuscole [a-z]</label>
-                    </div>
-                    <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" id="number" name="passch" checked>
-                        <label class="form-check-label" for="flexSwitchCheckDisabled">Numeri [0-9]</label>
-                    </div>
-                    <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" id="special"  name="passch" checked>
-                        <label class="form-check-label" for="flexSwitchCheckCheckedDisabled">Speciali [!@#$%^&*]</label>
-                    </div>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" id="genpassclose">Close</button>
-                <button type="button" class="btn btn-primary" id="genpasssave"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-check2" viewBox="0 0 16 16">
-  <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
-</svg></button>
-            </div>
             </div>
         </div>
-        </div>
-        <!--  -->
-        <!---  Modal per gli elementi -->
+        <!-- Fine Modal Genera Password -->
+
+        <!-- Modal Dettagli Elementi -->
         <div class="modal fade" id="elementdetail" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Dettagli elemento</h5>
-                <button type="button" class="btn close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-            <div class="row">
-                    <div class="col">
-                        <label for="Nome">Nome Elemento</label>
-                        <input type="text" class="form-control" id="detail_nome" aria-describedby="nomeHelp" placeholder="Inserisci nome" autocomplete='off'>
-                    </div>
-                    <div class="col">
-                        <label for="Username">Username</label>
-                        <input type="text" class="form-control" id="detail_username" aria-describedby="usernameHelp" placeholder="Inserisci username" autocomplete='off'>
-                    </div>
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Dettagli elemento</h5>
+                    <button type="button" class="btn close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
+                <div class="modal-body">
                 <div class="row">
-                    <div class="col">
-                        <label for="Email">Email</label>
-                        <input type="email" class="form-control" id="detail_email" aria-describedby="emailHelp" placeholder="Inserisci email" autocomplete='off'>
+                        <div class="col">
+                            <label for="Nome">Nome Elemento</label>
+                            <input type="text" class="form-control" id="detail_nome" aria-describedby="nomeHelp" placeholder="Inserisci nome" autocomplete='off'>
+                        </div>
+                        <div class="col">
+                            <label for="Username">Username</label>
+                            <input type="text" class="form-control" id="detail_username" aria-describedby="usernameHelp" placeholder="Inserisci username" autocomplete='off'>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <label for="Email">Email</label>
+                            <input type="email" class="form-control" id="detail_email" aria-describedby="emailHelp" placeholder="Inserisci email" autocomplete='off'>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <label for="Password">Password</label>
+                            <input type="password" class="form-control" id="detail_password" aria-describedby="passwordHelp" placeholder="Inserisci password" autocomplete='off'>
+                        </div>
+                        <div class="col col-md-auto" style="margin-top:5%;text-align:left;">
+                            <button type="button" title="Controlla integrità password" class="btn" id="detail_integr"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-patch-check" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M10.354 6.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7 8.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
+                                <path d="m10.273 2.513-.921-.944.715-.698.622.637.89-.011a2.89 2.89 0 0 1 2.924 2.924l-.01.89.636.622a2.89 2.89 0 0 1 0 4.134l-.637.622.011.89a2.89 2.89 0 0 1-2.924 2.924l-.89-.01-.622.636a2.89 2.89 0 0 1-4.134 0l-.622-.637-.89.011a2.89 2.89 0 0 1-2.924-2.924l.01-.89-.636-.622a2.89 2.89 0 0 1 0-4.134l.637-.622-.011-.89a2.89 2.89 0 0 1 2.924-2.924l.89.01.622-.636a2.89 2.89 0 0 1 4.134 0l-.715.698a1.89 1.89 0 0 0-2.704 0l-.92.944-1.32-.016a1.89 1.89 0 0 0-1.911 1.912l.016 1.318-.944.921a1.89 1.89 0 0 0 0 2.704l.944.92-.016 1.32a1.89 1.89 0 0 0 1.912 1.911l1.318-.016.921.944a1.89 1.89 0 0 0 2.704 0l.92-.944 1.32.016a1.89 1.89 0 0 0 1.911-1.912l-.016-1.318.944-.921a1.89 1.89 0 0 0 0-2.704l-.944-.92.016-1.32a1.89 1.89 0 0 0-1.912-1.911l-1.318.016z"/>
+                                </svg>
+                            </button>
+                            <button type="button" title="Visualizza password" class="btn" id="detail_visualpass"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
+                                <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>
+                                <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
+                                </svg>
+                            </button>
+                            <button type="button" title="Genera password" class="btn" id="detail_generapass"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-repeat" viewBox="0 0 16 16">
+                                <path d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z"/>
+                                <path fill-rule="evenodd" d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col">
+                            <label for="url">Url</label>
+                            <input type="text" class="form-control" id="detail_url" aria-describedby="urlHelp" placeholder="Inserisci url - ex: www.google.com" autocomplete='off'>
+                        </div>
+                        <div class="col col-md-auto" style="margin-top:5%;text-align:left;">
+                            <button type="button" title="Aggiungi elemento ai preferiti" class="btn" id="detailfav">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-star" viewBox="0 0 16 16">
+                                <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row">
+                    <div class="form-group">
+                        <label for="notearea">Note</label>
+                        <textarea class="form-control" id="detail_note" rows="3"></textarea>
+                    </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col">
-                        <label for="Password">Password</label>
-                        <input type="password" class="form-control" id="detail_password" aria-describedby="passwordHelp" placeholder="Inserisci password" autocomplete='off'>
-                    </div>
-                    <div class="col col-md-auto" style="margin-top:5%;text-align:left;">
-                        <button type="button" title="Controlla integrità password" class="btn" id="detail_integr"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-patch-check" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M10.354 6.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7 8.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
-                            <path d="m10.273 2.513-.921-.944.715-.698.622.637.89-.011a2.89 2.89 0 0 1 2.924 2.924l-.01.89.636.622a2.89 2.89 0 0 1 0 4.134l-.637.622.011.89a2.89 2.89 0 0 1-2.924 2.924l-.89-.01-.622.636a2.89 2.89 0 0 1-4.134 0l-.622-.637-.89.011a2.89 2.89 0 0 1-2.924-2.924l.01-.89-.636-.622a2.89 2.89 0 0 1 0-4.134l.637-.622-.011-.89a2.89 2.89 0 0 1 2.924-2.924l.89.01.622-.636a2.89 2.89 0 0 1 4.134 0l-.715.698a1.89 1.89 0 0 0-2.704 0l-.92.944-1.32-.016a1.89 1.89 0 0 0-1.911 1.912l.016 1.318-.944.921a1.89 1.89 0 0 0 0 2.704l.944.92-.016 1.32a1.89 1.89 0 0 0 1.912 1.911l1.318-.016.921.944a1.89 1.89 0 0 0 2.704 0l.92-.944 1.32.016a1.89 1.89 0 0 0 1.911-1.912l-.016-1.318.944-.921a1.89 1.89 0 0 0 0-2.704l-.944-.92.016-1.32a1.89 1.89 0 0 0-1.912-1.911l-1.318.016z"/>
-                            </svg>
-                        </button>
-                        <button type="button" title="Visualizza password" class="btn" id="detail_visualpass"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
-                            <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>
-                            <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
-                            </svg>
-                        </button>
-                        <button type="button" title="Genera password" class="btn" id="detail_generapass"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-repeat" viewBox="0 0 16 16">
-                            <path d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z"/>
-                            <path fill-rule="evenodd" d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z"/>
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-                <hr>
-                <div class="row">
-                    <div class="col">
-                        <label for="url">Url</label>
-                        <input type="text" class="form-control" id="detail_url" aria-describedby="urlHelp" placeholder="Inserisci url - ex: www.google.com" autocomplete='off'>
-                    </div>
-                    <div class="col col-md-auto" style="margin-top:5%;text-align:left;">
-                        <button type="button" title="Aggiungi elemento ai preferiti" class="btn" id="detailfav">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-star" viewBox="0 0 16 16">
-                            <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"/>
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-                <div class="row">
-                <div class="form-group">
-                    <label for="notearea">Note</label>
-                    <textarea class="form-control" id="detail_note" rows="3"></textarea>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" id="detailsclose">Close</button>
+                    <button type="button" class="btn btn-primary" id="detailssave">Save</button>
                 </div>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" id="detailsclose">Close</button>
-                <button type="button" class="btn btn-primary" id="detailssave">Save</button>
-            </div>
             </div>
         </div>
-        </div>
+        <!-- Fine Modal Dettagli Elementi -->
         <script>
             sessionStorage.setItem('key', '<?php echo $_SESSION["key"];?>');
             sessionStorage.setItem('jwt', '<?php echo $_SESSION["jwt"];?>');

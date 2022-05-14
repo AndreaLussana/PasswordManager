@@ -1,5 +1,7 @@
 var elements = [];
 var open = 0;   //1=aggiungi elemento, 2=dettagli elemento
+var ELindex=-1;  //Variabile per tenere l'id dell'indice dell'elemento selezionato
+var ELid=-1;    //Variabile per l'id dell'elemento nel database 
 async function checkPassword(){
     var find = false;
     var pass = document.getElementById("input_password").value;
@@ -181,6 +183,15 @@ document.querySelector("#addfav").addEventListener('click', function(){
         $("#addfav").addClass("filled");
     }
 });
+document.querySelector("#detailfav").addEventListener('click', function(){
+    if($("#detailfav").hasClass("filled")){
+        document.getElementById("detailfav").innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-star" viewBox="0 0 16 16"><path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"/></svg>';
+        $("#detailfav").removeClass("filled");
+    }else{
+        document.getElementById("detailfav").innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16"><path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/></svg>';
+        $("#detailfav").addClass("filled");
+    }
+});
 document.querySelector("#home_btn").addEventListener('click', function(){
     $('#Home').removeClass("d-none");
     $('#Preferiti').addClass("d-none");
@@ -312,34 +323,58 @@ $('#exampleModalCenter').on('hidden.bs.modal', function () {
 });
 $(document).on('click','.row_el',function(){
     var sp = (this.id).split(",");
-    var index = sp[0];
-    var id = sp[1];
-    $('#detail_nome').val(elements[index].name);
-    $('#detail_username').val(elements[index].username);
-    $('#detail_email').val(elements[index].email);
-    $('#detail_password').val(elements[index].password);
+    ELindex = sp[0];
+    ELid = sp[1];
+    $('#detail_nome').val(elements[ELindex].name);
+    $('#detail_username').val(elements[ELindex].username);
+    $('#detail_email').val(elements[ELindex].email);
+    $('#detail_password').val(elements[ELindex].password);
     //Gestire il check della password e la generazione (cambiare il take del value nella funzione che viene richiamata quando premo sul bottoine)
-    $('#detail_url').val(elements[index].url);
-    if(elements[index].favourite == true){
+    $('#detail_url').val(elements[ELindex].url);
+    if(elements[ELindex].favourite == true){
         document.getElementById("detailfav").innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16"><path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/></svg>';
         $("#detailfav").addClass("filled");
     }
-    $('#detail_note').val(elements[index].note);
+    $('#detail_note').val(elements[ELindex].note);
     $('#elementdetail').modal('show');
 });
 $('#elementdetail').on('hidden.bs.modal', function () {
     if(!$('#genpassmodal').is(':visible')){
         $('#elementdetail').find("input[type=text],input[type=email], input[type=password], textarea").val("");
         document.getElementById("detailfav").innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-star" viewBox="0 0 16 16"><path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"/></svg>';
-        $("#addfav").removeClass("detailfav");
+        $("#detailfav").removeClass("filled");
     }
 });
 document.querySelector("#detailsclose").addEventListener('click', function(){
     $('#elementdetail').modal('hide');
 });
 document.querySelector("#detailssave").addEventListener('click', function(){
-    //Richiedi conferma di modificare l'elemento
-    //Modifica elemento salvando prima sul database, poi in array elements e infine aggiorna gli elementi mostrati nella pagina
+    var fav = false;
+    if($("#detailfav").hasClass("filled")){
+        fav=true;
+    }
+    var new_el = new elemento($('#detail_nome').val(), $('#detail_username').val(), $('#detail_email').val(), $('#detail_password').val(), fav, $('#detail_url').val(), $('#detail_note').val());
+    var str = JSON.stringify(new_el);
+    var encrypted = CryptoJS.AES.encrypt(str, sessionStorage.getItem('key'));
+    var settings = {
+        "url": "../../../Backend/api/element.php",
+        "method": "POST",
+        "timeout": 0,
+        "headers": {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer "+ sessionStorage.getItem('jwt')
+        },
+        "data": JSON.stringify({
+            "ceu": encrypted.toString(),
+            "idel": ELid
+        }),
+        };
+          
+    $.ajax(settings).done(function (response) {
+        $('#Home').empty();
+        req_elem();
+    });
+    $('#elementdetail').modal('hide');
 });
 document.querySelector("#create_team").addEventListener('click', function(){
     //Possibilità di creare un solo team ma puó partecipare a piú team
