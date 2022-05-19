@@ -274,6 +274,24 @@ function add_element(el){
 }
 $( document ).ready(function() {    //Funzione quando ricarico la pagina
    req_elem();
+   var settings = {
+    "url": "../../../Backend/api/user.php/fa",
+    "method": "GET",
+    "timeout": 0,
+    "headers": {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer "+ sessionStorage.getItem('jwt')
+    }
+    };
+    $.ajax(settings).done(function (response) {
+        var t='<h1 class="mb-5">Impostazioni</h1>';
+        if(response.response == true){
+            t+='<div class="row shadow p-2 mb-1 bg-white unselectable" id="fa">Google Authenticator attivo!</div>';
+        }else if(response.response == false){
+            t+='<div class="row shadow p-2 mb-1 bg-white unselectable" id="fa"><div class="col-sm">Attiva Google Authenticator</div><div class="col-sm"><button type="button" class="btn btn-primary" id="activatorfa" >Attiva</button></div></div>';
+        }
+        document.getElementById("Impostazioni").innerHTML = t;
+    });
 });
 function req_elem(){
     elements=[];
@@ -381,4 +399,18 @@ document.querySelector("#create_team").addEventListener('click', function(){
 });
 document.querySelector("#addel_team").addEventListener('click', function(){
     //Aggiungi elemento ad un team e inserisci la cartella dove selezionare il team (da inserire poi nel modifica totale)
+});
+$(document).on('click','#activatorfa',function(){
+    var settings = {
+        "url": "https://www.authenticatorapi.com/pair.aspx?AppName=PasswordManager&AppInfo=PasswordManager&SecretCode=12345678BXYT",
+        "method": "GET",
+        "timeout": 0,
+        "headers": {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer "+ sessionStorage.getItem('jwt')
+        }
+        };
+        $.ajax(settings).done(function (response) {
+            document.getElementById("Impostazioni").innerHTML += response;
+        });
 });

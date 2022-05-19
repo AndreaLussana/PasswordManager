@@ -3,15 +3,22 @@ require "../../vendor/autoload.php";
 use \Firebase\JWT\JWT;
 use \Firebase\JWT\Key;
 function verify($jwt, $secret_key){
-    $token = JWT::decode($jwt, new Key($secret_key, 'HS512'));
-    $now = new DateTimeImmutable();
-    $serverName = "lussana.altervista.org";
-    if ($token->iss !== $serverName || $token->nbf > $now->getTimestamp() || $token->exp < $now->getTimestamp())
-    {
-        return false;
-    }else{
-        return $token->id;
-    }
+	try {
+    	$token = JWT::decode($jwt, new Key($secret_key, 'HS512'));
+        $now = new DateTimeImmutable();
+        $serverName = "lussana.altervista.org";
+        if ($token->iss !== $serverName || $token->nbf > $now->getTimestamp() || $token->exp < $now->getTimestamp())
+        {
+            http_response_code(401);
+        	exit();
+        }else{
+            return $token->id;
+        }
+    } catch (\Exception $e) { // Also tried JwtException
+    		http_response_code(401);
+        	exit();
+	} 
+    
 }
 function create($id, $secret_key){
     $date   = new DateTimeImmutable();

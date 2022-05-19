@@ -21,11 +21,18 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){   //Update info about element
         }
     }
     if(!checknotexist($conn, $id)){    //false utente esiste allora puó inserire l'elemento
-        $stmt = $conn->prepare('UPDATE element SET ceu=? WHERE id=? AND user_id=?');
-        $stmt->bind_param('sii', $ceu, $id_el, $id); 
-        $stmt->execute();
-        $result = $stmt->get_result();
-        response("Element updated", true, "");
+        $conn->begin_transaction();
+        try{
+            $stmt = $conn->prepare('UPDATE element SET ceu=? WHERE id=? AND user_id=?');
+            $stmt->bind_param('sii', $ceu, $id_el, $id); 
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $conn->commit();
+            response("Element updated", true, "");
+        }catch(mysqli_sql_exception $exception){
+            $mysqli->rollback();
+            throw $exception;
+        }
     }else{  //false allora l'utente giá esiste
         response("Error in element update", false, "");
     }
@@ -324,6 +331,11 @@ function req_2fa($conn){
     }
 }
 function response($message, $status, $response){
+	if($status==true){
+        http_response_code(200);
+    }else{
+        http_response_code(400);
+    }
     echo json_encode(array("message" => $message, "status" => $status, "response" => $response));
     exit();
 }

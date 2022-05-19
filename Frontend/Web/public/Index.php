@@ -1,7 +1,6 @@
 <?php
 session_start();
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-  
   $email = $_POST["mail"];
   $pwd = $_POST["pass"];
   
@@ -41,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       header("Location: home.php");
       exit();
     }
-  } elseif ($t == "reg") {
+  } elseif ($t == "reg") {  //Registrazione
     $requestR = true;
     if(isset($_POST["Rricordami"])){
       setcookie("email", $email, time() + (10 * 365 * 24 * 60 * 60), "/"); 
@@ -109,6 +108,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         echo '<div class="alert alert-success" role="alert"><strong>OK! <br></strong>Registrazione completata! <br> Effettua il login</div>';
       }
     ?>
+  </div>
+  <div class="container" style="position:absolute;top:20px;left:2%;font-size:30px;width:15%;">
+    PasswordManager
   </div>
   <div class="container d-flex justify-content-center align-items-center" style="margin-top: 15%;">
     <form method="post" action="" style="display: block;" id="LoginForm">

@@ -2,7 +2,7 @@
 header("Content-Type: application/json");
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: Access-Control-Allow-Headers,Content-Type,Access-Control-Allow-Methods,Authorization");
-if($_SERVER["REQUEST_METHOD"] == "POST"){   //Update only detusers table
+if($_SERVER["REQUEST_METHOD"] == "POST"){  
     header("Access-Control-Allow-Methods: POST");
     $data = json_decode(file_get_contents("php://input"), true);
     if(empty($data["id"]) && empty($_POST["id"])){
@@ -13,7 +13,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){   //Update only detusers table
         if(empty($email) || empty($pwd)){
             $email = $_POST["email"];
             $pwd = $_POST["pwd"];
-            if(empty($email) || empty($pwd)){
+            if(empty($email) || empty($pwd) || !filter_var($email, FILTER_VALIDATE_EMAIL)){
                 response("Error sending data", false, "");
             }
         }
@@ -152,7 +152,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){   //Update only detusers table
             req_google($conn);
             break;
         }
-        case '2fa':{
+        case 'fa':{
             req_2fa($conn);
             break;
         }
@@ -167,19 +167,26 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){   //Update only detusers table
     if(empty($email) || empty($pwd)){
         $email = $_PUT["email"];
         $pwd = $_PUT["pwd"];
-        if(empty($email) || empty($pwd)){
+        if(empty($email) || empty($pwd) || !filter_var($email, FILTER_VALIDATE_EMAIL)){
             response("Error sending data", false, "");
         }
     }
     require_once "../Config/DB.php";
     if(checknotexist($conn, $email)){    //true allora l'utente non esiste allora puó registrarsi
-        include("crypto/user_store.php");
-        $stmt = $conn->prepare('INSERT INTO users(email, pwd, skey, salt) VALUES(?,?, ?, ?)');
-        $stmt->bind_param('ssss', $email, $stored_pwd, $stored_key, $stored_salt); 
-        $stmt->execute();
-        $result = $stmt->get_result();
-        $id = takeid($conn, $email);
-        response("User created", true, "Success");
+    	include("crypto/user_store.php");
+    	$conn->begin_transaction();
+        try{
+          $stmt = $conn->prepare('INSERT INTO users(email, pwd, skey, salt) VALUES(?,?, ?, ?)');
+          $stmt->bind_param('ssss', $email, $stored_pwd, $stored_key, $stored_salt); 
+          $stmt->execute();
+          $result = $stmt->get_result();
+          $conn->commit();
+          $id = takeid($conn, $email);
+          response("User created", true, "Success");
+        }catch(mysqli_sql_exception $exception){
+            $mysqli->rollback();
+            throw $exception;
+        }
     }else{  //false allora l'utente giá esiste
         response("User already exist", false, "");
     }
@@ -357,32 +364,61 @@ function req_google($conn){
     }
 }
 function req_2fa($conn){
-    $data = json_decode(file_get_contents("php://input"), true);
-    $id = $data["user_id"];
-    if(empty($id)){
-        $id = $_GET["user_id"];
-        if(empty($id)){
-            response("Error sending data", false, "");
-        }
-    }
-    $stmt = $conn->prepare('SELECT * FROM detusers WHERE user_id = ?');
-    $stmt->bind_param('s', $id); 
+    include("../Config/Config.php");
+    include("crypto/jwt.php");
+    $jwt = getBearerToken();
+    $id = verify($jwt, $secret_key);
+    $stmt = $conn->prepare('SELECT * FROM users WHERE id = ?');
+    $stmt->bind_param('i', $id); 
     $stmt->execute();
     $result = $stmt->get_result();
     if($result->num_rows === 0){
         response("No users find", false, "");
     }else{
-        $res = "";
         while ($row = $result->fetch_assoc()) {
-            if($res != ""){
-                $res .=",";
-            }
-            $res .= $row["fa"];
+           if($row["fa"] != NULL && $row["fa"] != false){
+                $res = true;
+           }else{
+                $res=false;
+           }
         }
         response("User finded", true, $res);
     }
 }
+function getAuthorizationHeader(){
+    $headers = null;
+    if (isset($_SERVER['Authorization'])) {
+        $headers = trim($_SERVER["Authorization"]);
+    }
+    else if (isset($_SERVER['HTTP_AUTHORIZATION'])) { //Nginx or fast CGI
+        $headers = trim($_SERVER["HTTP_AUTHORIZATION"]);
+    } elseif (function_exists('apache_request_headers')) {
+        $requestHeaders = apache_request_headers();
+        // Server-side fix for bug in old Android versions (a nice side-effect of this fix means we don't care about capitalization for Authorization)
+        $requestHeaders = array_combine(array_map('ucwords', array_keys($requestHeaders)), array_values($requestHeaders));
+        //print_r($requestHeaders);
+        if (isset($requestHeaders['Authorization'])) {
+            $headers = trim($requestHeaders['Authorization']);
+        }
+    }
+    return $headers;
+}
+function getBearerToken() {
+    $headers = getAuthorizationHeader();
+    // HEADER: Get the access token from the header
+    if (!empty($headers)) {
+        if (preg_match('/Bearer\s(\S+)/', $headers, $matches)) {
+            return $matches[1];
+        }
+    }
+    return null;
+}
 function response($message, $status, $response){
+	if($status==true){
+        http_response_code(200);
+    }else{
+        http_response_code(400);
+    }
     echo json_encode(array("message" => $message, "status" => $status, "response" => $response));
     exit();
 }

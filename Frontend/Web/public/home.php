@@ -3,13 +3,13 @@ session_start();
 if($_SERVER["REQUEST_METHOD"] == "POST"){
     if($_POST["type"] == "logout"){
         session_destroy();
-        header("Location: index.php");
+        header("Location: Index.php");
         exit();
     }
 }
 
 if(!isset($_SESSION["key"]) || !isset($_SESSION["jwt"])){
-    header("Location: index.php");
+    header("Location: Index.php");
     exit();
 }
 ?>
@@ -82,7 +82,6 @@ if(!isset($_SESSION["key"]) || !isset($_SESSION["jwt"])){
         <div class="container d-none" id="Impostazioni">
             <h1 class="mb-5">Impostazioni</h1>
             <!-- Aggiunta di un elemento -->
-            nothung
             <!-- -->
         </div>
         <!-- Fine Impostazioni -->

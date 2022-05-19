@@ -1,5 +1,3 @@
-//import * as cr from './crypt.js'
-var host = "localhost/PasswordManager/";
 function Validate() {
     var password = document.getElementById("Rpassword").value;
     var confirmPassword = document.getElementById("Rconfirm_password").value;
