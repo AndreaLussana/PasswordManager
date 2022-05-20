@@ -156,7 +156,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       <div class="row">
         <div class="col-5">
           <input type="hidden" name="req" value="reg"></input>
-          <button type="submit" class="btn btn-primary" style="margin-top: 2%;" id="Reg">Submit</button>
+          <button type="button" class="btn btn-primary" style="margin-top: 2%;" id="Reg">Submit</button>
         </div>
       </div>
     </form><br>

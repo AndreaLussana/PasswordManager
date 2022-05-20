@@ -44,3 +44,8 @@ $('#modalCookie1').on('hidden.bs.modal', function () {
         $( "#Rricordami, #Lricordami" ).prop( "checked", false );
     }
 });
+document.querySelector("#Reg").addEventListener('click', function(){
+    if(Validate()){
+        $("RegForm").submit();
+    }
+});
